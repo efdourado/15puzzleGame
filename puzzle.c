@@ -25,11 +25,21 @@ void iniBoard() {
     board[emptyRow][emptyCol] = 0;
 }
 
+void initializeColors() {
+    start_color();
+
+    init_pair(1, COLOR_RED, COLOR_BLACK); //color numbers
+    init_pair(2, COLOR_PAIRS, COLOR_BLACK);
+}
+
 void printBoard(WINDOW *win) {
     wclear(win);
 
+    wattron(win, COLOR_PAIR(2));
     wprintw(win, "~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+    wattroff(win, COLOR_PAIR(2));
 
+    wattron(win, COLOR_PAIR(1));
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
 
@@ -43,8 +53,17 @@ void printBoard(WINDOW *win) {
                     wprintw(win, "  %d  ", board[i][j]);
             }
         }
+        wattroff(win, COLOR_PAIR(1));
+
+        wattron(win, COLOR_PAIR(2));
         wprintw(win, "\n\n~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+        wattroff(win, COLOR_PAIR(2));
+
+        wattron(win, COLOR_PAIR(1));
     }
+    wattroff(win, COLOR_PAIR(1));
+    
+    wattron(win, COLOR_PAIR(2));
     wrefresh(win);
 }
 
@@ -124,6 +143,8 @@ int main() {
     keypad(stdscr, TRUE);
     curs_set(FALSE);
     refresh();
+
+    initializeColors();
 
     int maxY, maxX;
     getmaxyx(stdscr, maxY, maxX);
