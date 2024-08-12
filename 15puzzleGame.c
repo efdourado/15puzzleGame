@@ -4,6 +4,9 @@
 #include <ncurses.h>
 #include <unistd.h>
 
+// gcc -o 15puzzle 15puzzleGame.c -lncurses
+// ./15puzzle
+
 #define SIZE 4
 #define DELAY 4
 
